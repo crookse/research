@@ -201,10 +201,15 @@ A key is a long random code. It is shown once, when it's created, and only a scr
 ```
 mtk_live_inv_7K3QX9PDM2RA_4fJ8wZqL0vT2yN6sB1cH9kR3mX5pD7aE_c1a9f2
 │   │    │   │            │                                └ check digits, to catch typos
+|   |    |   |            |                                
 │   │    │   │            └ the secret: 32 random bytes
+|   |    |   |       
 │   │    │   └ public ID: safe to show in logs and the dashboard
+|   |    |   
 │   │    └ endpoint code (inv = /invoices): a hint for humans only
+|   |
 │   └ live or test
+|
 └ application marker, so leaked keys can be spotted automatically
 ```
 
