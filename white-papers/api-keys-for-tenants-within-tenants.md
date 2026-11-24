@@ -173,6 +173,16 @@ If any answer is no, the request is refused. So no single mistake, like ticking 
 | `keys:manage:descendants` | Manage API keys for tenants below the holder's tenant |
 | `tenants:act_on_descendants` | Create keys that can act for tenants below the holder's tenant |
 
+**Single items.** A permission can be narrowed from a whole endpoint to the items inside it, following the web address. This lets a key look up one customer, or any one customer, without being able to list them all:
+
+| Permission | What it allows |
+| --- | --- |
+| `customers:read` | List customers at `/customers`, and see any one at `/customers/1234` |
+| `customers.*:read` | See any one customer at `/customers/1234`, but not the list |
+| `customers.1234:read` | See customer 1234 only |
+
+A broader permission always includes the narrower ones below it, never the other way round. If a tenant's plan allows `customers:read`, its keys can be given `customers.1234:read`. If its plan allows only `customers.*:read`, its keys can never list customers. The `*` stands for exactly one whole part of the address: `customers.12` never matches customer 1234, and partial patterns like `cus*` are refused. Creating something is only ever given on the whole endpoint (`customers:create`), because a new item has no number until it exists. The server works out which item a request is for from the tidied-up address, exactly as it works out the endpoint.
+
 **Shortcuts.** `invoices:*` means "every invoice action this endpoint allows." There is no shortcut for "everything."
 
 **Permissions that include others.** A short, published list covers these; for example, being able to change invoices includes being able to see them. The list is kept short and visible so nobody is surprised.
